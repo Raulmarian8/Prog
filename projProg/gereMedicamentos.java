@@ -22,10 +22,8 @@ public class gereMedicamentos implements Serializable {
 	}
 	
 	public boolean listaVazia() {
-		if (medicamentosList.size() == 0) {
-			return true;
-		}return false;
-	}
+        return medicamentosList.isEmpty();
+    }
 	
 	
 //	Ordenar medicamentos por designacao/nome
@@ -36,9 +34,9 @@ public class gereMedicamentos implements Serializable {
 //	Listar todos os medicamentos
 	public String ListarMedicamentos() {
 		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
-		String medicamentosInfo = "";
+		String medicamentosInfo = "-------------------------";
 		while (e.hasMoreElements()) {
-			medicamentosInfo += e.nextElement() + "\n";
+			medicamentosInfo += e.nextElement() + "-------------------------" + "\n";
 		}
 		return medicamentosInfo;
 	}
@@ -70,12 +68,12 @@ public class gereMedicamentos implements Serializable {
 	}
 	
 //	pesquisa medicamentos por componente Ativa
-	public medicamentos pesquisaMedicamentosCompAAtiva (compAtivo aComponenteAtiva) {
+	public medicamentos pesquisaMedicamentosCompAAtiva (String designacao) {
 		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
 		medicamentos medicamentosAux;
 		while (e.hasMoreElements()) {
 			medicamentosAux = e.nextElement();
-			if(medicamentosAux.getComponenteAtivo().equals(aComponenteAtiva)) {
+			if(medicamentosAux.getComponenteAtivo().getDesignacao().equalsIgnoreCase(designacao)) {
 				return medicamentosAux;
 			}
 		}
@@ -95,31 +93,6 @@ public class gereMedicamentos implements Serializable {
 		return null;
 	}
 	
-//	pesquisa medicamentos por NAO generico
-	public medicamentos pesquisaMedicamentosNaoGen (boolean aGenerico) {
-		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
-		medicamentos medicamentosAux;
-		while (e.hasMoreElements()) {
-			medicamentosAux = e.nextElement();
-			if(medicamentosAux.isGenerico() != (aGenerico)) {
-				return medicamentosAux;
-			}
-		}
-		return null;
-	}
-	
-//	pesquisa medicamentos por quantidade de stock
-	public medicamentos pesquisaMedicamentosStock (int aQuantidade) {
-		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
-		medicamentos medicamentosAux;
-		while (e.hasMoreElements()) {
-			medicamentosAux = e.nextElement();
-			if(medicamentosAux.getQuantidade() < (aQuantidade)) {
-				return medicamentosAux;
-			}
-		}
-		return null;
-	}
 	
 	
 
