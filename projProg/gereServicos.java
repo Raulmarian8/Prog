@@ -114,5 +114,28 @@ public class gereServicos implements Serializable {
 		}
 		return null;
 	}
+	//	Listar todos os servicos associados a um farmaceutico
+	public String listarServicosFarmaceutico(utilizador aFarmaceutico){
+		Enumeration <servicos> e = Collections.enumeration(servicosList);
+		String servicosInfo = "";
+		servicos servico;
+		while (e.hasMoreElements()) {
+			servico = e.nextElement();
+			if (servico.getFarmaceutico() == aFarmaceutico) {
+				servicosInfo += servico + "\n";
+			}
+		}
+		return servicosInfo;
+	}
+
+	//	Listar todos os servicos
+	public String ListarServicos(){
+		Enumeration <servicos> e = Collections.enumeration(servicosList);
+		String servicosInfo = "";
+		while (e.hasMoreElements()) {
+			servicosInfo += e.nextElement() + "\n";
+		}
+		return servicosInfo;
+	}
 
 }

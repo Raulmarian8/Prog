@@ -92,9 +92,16 @@ public class gereMedicamentos implements Serializable {
 		}
 		return null;
 	}
-	
-	
-	
-
-	
+	//	pesquisa medicamentos por quantidade de stock
+	public medicamentos pesquisaMedicamentosStock (int aQuantidade) {
+		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
+		medicamentos medicamentosAux;
+		while (e.hasMoreElements()) {
+			medicamentosAux = e.nextElement();
+			if(medicamentosAux.getQuantidade() < (aQuantidade)) {
+				return medicamentosAux;
+			}
+		}
+		return null;
+	}
 }
