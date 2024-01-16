@@ -49,6 +49,10 @@ public class servicos implements Serializable{
 		return cliente;
 	}
 
+	public int getTempo() {
+		return tempo;
+	}
+
 	public utilizador getFarmaceutico() {
 		return farmaceutico;
 	}

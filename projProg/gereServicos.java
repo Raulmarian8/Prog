@@ -36,7 +36,7 @@ public class gereServicos implements Serializable {
 		return false;
 	}
 
-//	pesquisa servicos por codigo
+//	Pesquisas servicos por codigo
 	public servicos pesquisaServicosCodigo (int aCodigo) {
 		Enumeration<servicos> e = Collections.enumeration(servicosList);
 		servicos servicosAux;
@@ -48,7 +48,7 @@ public class gereServicos implements Serializable {
 		}
 		return null;
 	}
-	//	Listar todos os servicos
+//	Listar todos os servicos
 	public String listarServicos(){
 		Enumeration <servicos> e = Collections.enumeration(servicosList);
 		String servicosInfo = "-------------------------";
@@ -114,28 +114,32 @@ public class gereServicos implements Serializable {
 		}
 		return null;
 	}
-	//	Listar todos os servicos associados a um farmaceutico
-	public String listarServicosFarmaceutico(utilizador aFarmaceutico){
+	//	Listar todos os servicos associados a todos os farmaceuticos organizados
+	public String listarServicosFarmaceutico(int aNif){
 		Enumeration <servicos> e = Collections.enumeration(servicosList);
-		String servicosInfo = "";
+		String servicosInfo = "-------------------------";
 		servicos servico;
 		while (e.hasMoreElements()) {
 			servico = e.nextElement();
-			if (servico.getFarmaceutico() == aFarmaceutico) {
-				servicosInfo += servico + "\n";
+			if (servico.getFarmaceutico().getNif() == aNif) {
+				servicosInfo += servico + "-------------------------" + "\n";
 			}
 		}
 		return servicosInfo;
 	}
-
-	//	Listar todos os servicos
-	public String ListarServicos(){
-		Enumeration <servicos> e = Collections.enumeration(servicosList);
-		String servicosInfo = "";
+//	pesquisa servicos por tempo despendido
+	public gereServicos pesquisaServicosTempo (int aTempo) {
+		gereServicos gereServicosAux = new gereServicos();
+		Enumeration<servicos> e = Collections.enumeration(servicosList);
+		servicos servicosAux;
 		while (e.hasMoreElements()) {
-			servicosInfo += e.nextElement() + "\n";
+			servicosAux = e.nextElement();
+			if(servicosAux.getTempo() > (aTempo)) {
+				gereServicosAux.inserirServico(servicosAux);
+			}
 		}
-		return servicosInfo;
+		return gereServicosAux;
 	}
+
 
 }

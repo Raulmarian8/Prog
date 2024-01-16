@@ -302,9 +302,12 @@ public class principal {
 													gereServicos.ListarServicosEstado(5);
 												}
 												case 5:{
-
+													int codigo = dadosIntIn("Introduza o codigo de servico:");
+													System.out.println(gereServicos.pesquisaServicosCodigo(codigo));
+													break;
 												}
 												case 6:{
+													int tempo = dadosIntIn("Introduza o tempo despendido em horas:");
 
 												}
 											}
