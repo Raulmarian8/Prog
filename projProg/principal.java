@@ -308,11 +308,11 @@ public class principal {
 												}
 												case 6:{
 													int tempo = dadosIntIn("Introduza o tempo despendido em horas:");
-
+													gereServicos gereServicosAux = gereServicos.pesquisaServicosTempo(tempo);
+													System.out.println(gereServicosAux.listarServicos());
 												}
 											}
 										}while (opcao != 7);
-
 									}
 								}
 							}while (opcao!=4);
