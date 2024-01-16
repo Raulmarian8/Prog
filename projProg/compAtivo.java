@@ -14,11 +14,7 @@ public class compAtivo {
 		codigo = aCodigo;
 		quantidade = aQuantidade;
 	}
-
-	public String getDesignacao() {
-		return designacao;
-	}
-
+	
 	public String toString() {
         return "\n\tDesignacao: "+designacao + 
         		"\n\tCodigo: "+codigo+

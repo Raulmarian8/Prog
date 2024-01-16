@@ -19,8 +19,10 @@ public class gereUtilizador {
 	}
 	
 	public boolean listaVazia() {
-        return userList.isEmpty();
-    }
+		if (userList.size() == 0) {
+			return true;
+		}return false;
+	}
 	
 	public utilizador login(String aLogin, String aPassword) {
 		if(!listaVazia()) {
@@ -75,20 +77,6 @@ public class gereUtilizador {
 			}
 		} return false;
 	}
-
-	public String PedidosRegisto(){
-		Enumeration<utilizador> e = Collections.enumeration(userList);
-		String usersInfo = "-------------------------";
-		while (e.hasMoreElements()) {
-			if(!e.nextElement().isEstado()){
-				usersInfo += e.nextElement() + "-------------------------" + "\n";
-			}
-		}
-		return usersInfo;
-	}
-	public void AprovaPedido(String login){
-		pesquisaUserLogin(login).setEstado(true);
-	}
 	
 //	Ordenar user pelo nome
 	public void ordenaUsers() {
@@ -98,23 +86,23 @@ public class gereUtilizador {
 //	Listar todos os users
 	public String ListarUsers() {
 		Enumeration<utilizador> e = Collections.enumeration(userList);
-		String usersInfo = "-------------------------";
+		String usersInfo = "";
 		while (e.hasMoreElements()) {
-			usersInfo += e.nextElement() + "-------------------------" + "\n";
+			usersInfo += e.nextElement() + "\n";
 		}
 		return usersInfo;
 	}
 	
 //	Listar os users por tipo
 	public String ListarUsersTipo(int aTipo) {
-		if(userList != null && !userList.isEmpty()) {
+		if(userList != null && userList.size()>0) {
 			Enumeration<utilizador> e = Collections.enumeration(userList);
-			String userInfo = "-------------------------";
+			String userInfo = "";
 			utilizador userAux;
 			while (e.hasMoreElements()) {
 				userAux = e.nextElement();
 				if(userAux.getTipo() == aTipo) {
-					userInfo += userAux + "-------------------------" + "\n";
+					userInfo += userAux + "\n";
 				}
 			}
 			return userInfo;

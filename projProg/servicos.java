@@ -40,18 +40,19 @@ public class servicos implements Serializable{
 	public int getEstado() {
 		return estado;
 	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
+	
 	public utilizador getCliente() {
 		return cliente;
 	}
-
+	
+	public int getTempo() {
+		return tempo;
+	}
+	
 	public utilizador getFarmaceutico() {
 		return farmaceutico;
 	}
+
 
 	public String toString() {
 		String tipoAux = "";
