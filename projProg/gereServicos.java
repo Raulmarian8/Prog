@@ -20,27 +20,19 @@ public class gereServicos implements Serializable {
 	}
 
 	public boolean AceitarServico(int codigo) {
-		Enumeration <servicos> e = Collections.enumeration(servicosList);
-		servicos servico;
-		while (e.hasMoreElements()) {
-			servico = e.nextElement();
+		servicos  servico = pesquisaServicosCodigo(codigo);
 			if (servico.getCodigo() == codigo && servico.getEstado() == 1 ) {
 				servico.setEstado(2);
 				return true;
 			}
-		}
 		return false;
 	}
 	public boolean ConcluirServico(int codigo) {
-		Enumeration <servicos> e = Collections.enumeration(servicosList);
-		servicos servico;
-		while (e.hasMoreElements()) {
-			servico = e.nextElement();
+		servicos  servico = pesquisaServicosCodigo(codigo);
 			if (servico.getCodigo() == codigo && servico.getEstado() == 4) {
 				servico.setEstado(5);
 				return true;
 			}
-		}
 		return false;
 	}
 
@@ -97,6 +89,29 @@ public class gereServicos implements Serializable {
 			}
 			return null;
 		}return null;
+	}
+//    pesquisa servicos associado a um cliente
+	public servicos pesquisaServicosCliente (int aNif) {
+		Enumeration<servicos> e = Collections.enumeration(servicosList);
+		servicos servicosAux;
+		while (e.hasMoreElements()) {
+			servicosAux = e.nextElement();
+			if(servicosAux.getCliente().getNif() == aNif){
+				return servicosAux;
+			}
+		}
+		return null;
+	}//    pesquisa servicos associado a um farmaceutico
+	public servicos pesquisaServicosFarmaceuticos (int aNif) {
+		Enumeration<servicos> e = Collections.enumeration(servicosList);
+		servicos servicosAux;
+		while (e.hasMoreElements()) {
+			servicosAux = e.nextElement();
+			if(servicosAux.getFarmaceutico().getNif() == aNif) {
+				return servicosAux;
+			}
+		}
+		return null;
 	}
 
 }

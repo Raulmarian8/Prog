@@ -49,6 +49,10 @@ public class servicos implements Serializable{
 		return cliente;
 	}
 
+	public utilizador getFarmaceutico() {
+		return farmaceutico;
+	}
+
 	public String toString() {
 		String tipoAux = "";
 		String estadoAux = "";
