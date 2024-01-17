@@ -19,10 +19,11 @@ public class gereServicos implements Serializable {
 		return false;
 	}
 
-	public boolean AceitarServico(int codigo) {
+	public boolean AceitarServico(int codigo,utilizador afarmaceutico) {
 		servicos  servico = pesquisaServicosCodigo(codigo);
 			if (servico.getCodigo() == codigo && servico.getEstado() == 1 ) {
 				servico.setEstado(2);
+				servico.setFarmaceutico(afarmaceutico);
 				return true;
 			}
 		return false;
