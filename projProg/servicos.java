@@ -34,8 +34,10 @@ public class servicos implements Serializable{
 	}
 	servicos (gereMedicamentos meds,utilizador user){
 		medi = meds;
-		cliente = user;
+		valTotal = meds.Valortotal();
+		estado = 1;
 		codigo = codigo++;
+		cliente = user;
 	}
 	
 	public int getCodigo() {
@@ -64,6 +66,10 @@ public class servicos implements Serializable{
 
 	public utilizador getFarmaceutico() {
 		return farmaceutico;
+	}
+
+	public void setFarmaceutico(utilizador farmaceutico) {
+		this.farmaceutico = farmaceutico;
 	}
 
 	public String toString() {

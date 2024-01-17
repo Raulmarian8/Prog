@@ -56,8 +56,10 @@ public class medicamentos implements Comparable<medicamentos>, Serializable{
 	public compAtivo getComponenteAtivo() {
 		return componenteAtivo;
 	}
-	
-	
+
+	public float getPreco() {
+		return preco;
+	}
 
 	public boolean isGenerico() {
 		return generico;
@@ -75,12 +77,23 @@ public class medicamentos implements Comparable<medicamentos>, Serializable{
 
 
 	public int compareTo(medicamentos aObj) {
-		return nome.compareTo(aObj.getNome());	
+		return nome.compareTo(aObj.getNome());
 	}
-	
-	
-	
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "medicamentos{" +
+				"nome='" + nome + '\'' +
+				", marca='" + marca + '\'' +
+				", lote=" + lote +
+				", componenteAtivo=" + componenteAtivo +
+				", dosagem=" + dosagem +
+				", quantidade=" + quantidade +
+				", preco=" + preco +
+				", ano=" + ano +
+				", autorizacao=" + autorizacao +
+				", generico=" + generico +
+				'}';
+	}
 }

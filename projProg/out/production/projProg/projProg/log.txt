@@ -1,0 +1,164 @@
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user raul123>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user manel123>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<manel> <Registou-se na aplicação como Farmaceutico>
+<raul> <Registou-se na aplicação como Cliente>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Exibiu todos os utilizadores existentes no sistema>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<joao> <Criou conta como gestor>
+<joao> <Selecionou a opcao de aceitar um servico>
+<joao> <Entrou no menu de aprovacao e encerramento de servicos>
+<joao> <Listou todos os servicos existentes no sistema>
+<joao> <Entrou no menu de gestao de servicos>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<raul> <Criou um servico com o id: 0>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<raul> <Criou um servico com o id: 0>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<pedro> <Fez LogOut>
+<pedro> <Saiu do menu de gestao de medicamentos>
+<pedro> <Saiu do menu de exibicao de medicamentos genericos ou nao genericos>
+<pedro> <Selecionou uma opcao inalvida no menu de exibicao de medicamento genericos ou nao genericos>
+<pedro> <Entrou no menu de exibir medicamento genericos ou nao genericos>
+<pedro> <Exibiu os medicamentos nao genericos existentes no sistema>
+<pedro> <Entrou no menu de exibir medicamento genericos ou nao genericos>
+<pedro> <Exibiu os medicamentos genericos existentes no sistema>
+<pedro> <Entrou no menu de exibir medicamento genericos ou nao genericos>
+<pedro> <Inseriu o medicamento bananano sistema>
+<pedro> <Entrou no menu de gestao de medicamentos>
+<pedro> <Iniciou sessao na aplicacao como Farmaceutico>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user pedro123>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<pedro> <Registou-se na aplicação como Farmaceutico>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Exibiu todos os utilizadores existentes no sistema>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<pedro> <Fez LogOut>
+<pedro> <Saiu do menu de gestao de medicamentos>
+<pedro> <Exibiu os medicamentos com stock inferior a 400 unidades>
+<pedro> <Exibiu os medicamentos com stock inferior a 200 unidades>
+<pedro> <Listou todos os medicamentos>
+<pedro> <Inseriu o medicamento bananano sistema>
+<pedro> <Listou todos os medicamentos>
+<pedro> <Entrou no menu de gestao de medicamentos>
+<pedro> <Iniciou sessao na aplicacao como Farmaceutico>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user pedro123>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<pedro> <Registou-se na aplicação como Farmaceutico>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Exibiu todos os utilizadores existentes no sistema>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<pedro> <Listou todos os medicamentos>
+<pedro> <Inseriu o medicamento bananano sistema>
+<pedro> <Entrou no menu de gestao de medicamentos>
+<pedro> <Iniciou sessao na aplicacao como Farmaceutico>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user pedro>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<pedro> <Registou-se na aplicação como Farmaceutico>
+<raul> <Criou um servico com o id: 0>
+<raul> <Iniciou sessao na aplicacao como Cliente>
+<joao> <Fez LogOut>
+<joao> <Saiu do menu de gestao de utilizadores>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Aceitou o pedido de registo do user raul>
+<joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<raul> <Registou-se na aplicação como Cliente>
+<joao> <Criou conta como gestor>
+<Joao> <Fez LogOut>
+<Joao> <Saiu do menu de gestao de utilizadores>
+<Joao> <Saiu do menu de gestao de pedidos de registo>
+<Joao> <Selecionou a de gerir pedidos de registo>
+<Joao> <Aceitou o pedido de registo do user goncalo>
+<Joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<Joao> <Selecionou a de gerir pedidos de registo>
+<Joao> <Selecionou a opcao gerir utilizadores>
+<Joao> <Iniciou sessao na aplicacao como Gestor>
+<goncas> <Registou-se na aplicação como Farmaceutico>
+<joana> <Iniciou sessao na aplicacao como Gestor>
+<joana> <Registou-se na aplicação como Gestor>
+<Raul> <Exibiu o log>
+<Raul> <Exibiu o log>
+<Raul> <Iniciou sessao na aplicacao como Gestor>
+<Joao> <Fez LogOut>
+<Joao> <Saiu do menu de gestao de utilizadores>
+<Joao> <Saiu do menu de gestao de pedidos de registo>
+<Joao> <Selecionou a de gerir pedidos de registo>
+<Joao> <Aceitou o pedido de registo do user raul123>
+<Joao> <Selecionou a opcao de aceitar um pedido de um utilizador>
+<Joao> <Selecionou a de gerir pedidos de registo>
+<Joao> <Visualizou os pedidos de registo dos utilizadores>
+<Joao> <Selecionou a de gerir pedidos de registo>
+<Joao> <Selecionou a opcao gerir utilizadores>
+<Joao> <Iniciou sessao na aplicacao como Gestor>
+<Raul> <Registou-se na aplicação como Gestor>
+<Joao> <Criou conta como gestor>
+<raul> <Registou-se na aplicação como Farmaceutico>
+<joao> <Criou conta como gestor>
+<Raul> <Registou-se na aplicação como Cliente>
+<joao> <Criou conta como gestor>
+<pedro> <Fez LogOut>
+<pedro> <Iniciou sessao na aplicacao como Gestor>
+<pedro> <Criou conta como gestor>
+<joao> <Fez LogOut>
+<joao> <Iniciou sessao na aplicacao como Gestor>
+<joao> <Criou conta como gestor>
+<joao123> <Fez LogOut>
+<joao123> <Iniciou sessao na aplicacao como Gestor>
+<joao123> <Criou conta como gestor>
+<joao> <Exibiu todos os utilizadores existentes no sistema>
+<joao> <Saiu do menu de gestao de pedidos de registo>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Visualizou os pedidos de registo dos utilizadores>
+<joao> <Selecionou a de gerir pedidos de registo>
+<joao> <Selecionou a opcao gerir utilizadores>
+<joao> <Iniciou sessao na aplicacao>
+<joao> <Criou conta como gestor>
+<joao> <Exibiu todos os utilizadores existentes no sistema>
+
+
+<raul> <Registou-se na aplicação como Farmaceutico>
+null

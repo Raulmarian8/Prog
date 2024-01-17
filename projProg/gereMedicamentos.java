@@ -69,7 +69,17 @@ public class gereMedicamentos implements Serializable {
 		}
 		return null;
 	}
-	
+	public float Valortotal(){
+		float valAux=0;
+		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
+		medicamentos medicamentosAux;
+		while (e.hasMoreElements()) {
+			medicamentosAux = e.nextElement();
+			valAux+=medicamentosAux.getPreco();
+		}
+		return valAux;
+	}
+
 //	pesquisa medicamentos por componente Ativa
 	public medicamentos pesquisaMedicamentosCompAAtiva (String designacao) {
 		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
