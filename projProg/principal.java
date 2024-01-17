@@ -659,7 +659,7 @@ public class principal {
 		if(gen == 1){
 			generico = true;
 		}
-		return new medicamentos(nome,marca,lote,Criacomponente(),dosagem,quantidade,preco,ano,autorização,generico,);
+		return new medicamentos(nome,marca,lote,Criacomponente(),dosagem,quantidade,preco,ano,autorização,generico);
 	}
 	private static compAtivo Criacomponente(){
 		String designacao = dadosStringsIn("Introduza a designacao do co componenete ativo");

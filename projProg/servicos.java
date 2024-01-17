@@ -95,7 +95,9 @@ public class servicos implements Serializable{
 			tipoAux = "Normal";
 		}else {
 			tipoAux = "Urgente";
-		} return "\n\tTotal: "+valTotal+"\n\tData: "+data+
+		} return"\n\tFarmaceutico: "+farmaceutico+
+				"\n\tMedicamentos: "+medi.ListarMedicamentos()+
+				"\n\tTotal: "+valTotal+"\n\tData: "+data+
 				"\n\tTempo: "+tempo+"\n\tDescricao: "
 				+descricao+"\n\tTipo: "+tipoAux+"\n\tEstado: "
 				+estadoAux+"\n\tCodigo; "+codigo;
