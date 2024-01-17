@@ -20,6 +20,9 @@ public class gereMedicamentos implements Serializable {
 		}
 		return false;
 	}
+	public boolean removeMedicamento(medicamentos medicamentos){
+		return medicamentosList.remove(medicamentos);
+	}
 	
 	public boolean listaVazia() {
         return medicamentosList.isEmpty();

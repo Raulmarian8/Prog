@@ -15,7 +15,7 @@ public class servicos implements Serializable{
 	private String descricao;
 	private boolean tipo;
 	private int estado;
-	private static int codigo;
+	private static int codigo=0;
 	private utilizador cliente;
 	
 	servicos (utilizador aFarmaceutico, float aValTotal, String aData, int aTempo,
@@ -31,6 +31,11 @@ public class servicos implements Serializable{
 		estado = aEstado;
 		codigo = codigo++;
 		cliente = aCliente;
+	}
+	servicos (gereMedicamentos meds,utilizador user){
+		medi = meds;
+		cliente = user;
+		codigo = codigo++;
 	}
 	
 	public int getCodigo() {

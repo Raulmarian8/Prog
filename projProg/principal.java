@@ -391,7 +391,23 @@ public class principal {
 						}
 						//Cliente
 						case 3:{
-							MenuCliente();
+							do {
+								opcao = MenuCliente();
+								switch (opcao){
+									case 1:{
+										System.out.println("""
+												###############
+												Pedir Servico
+												###############
+												""");
+
+									}
+									case 2:{
+
+									}
+								}
+
+							}while (opcao != 3);
 							break;
 						}
 					}
@@ -643,7 +659,7 @@ public class principal {
 		if(gen == 1){
 			generico = true;
 		}
-		return new medicamentos(nome,marca,lote,Criacomponente(),dosagem,quantidade,preco,ano,autorização,generico);
+		return new medicamentos(nome,marca,lote,Criacomponente(),dosagem,quantidade,preco,ano,autorização,generico,);
 	}
 	private static compAtivo Criacomponente(){
 		String designacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
@@ -663,6 +679,66 @@ public class principal {
 		int quantidade = dadosIntIn("Introduza a quantidade: ");
 		String fornecedor = dadosStringsIn("Introduza o nome do fornecedor: ");
 		return new categoria(designacao,classificacao,quantidade,fornecedor);
+	}
+	//-------------------Servicos--------------------------
+	private static servicos CriaServico(utilizador userAux){
+		int opcao;
+		projProg.gereMedicamentos medsAux = new gereMedicamentos();
+		do {
+			opcao = dadosMenuOut("""
+                ###############
+                Criar Servico
+                ###############
+                \t[1]Adicionar medicamento
+                \t[2]Remover medicamento
+                \t[3]Listar medicamento associados
+                \t[4]Continuar
+                \tEscolha uma Opcao:\s""");
+			switch (opcao){
+				case 1:{
+					System.out.println("""
+					###############
+					Medicamentos disponiveis
+					###############
+					""");
+					gereMedicamentos.ListarMedicamentos();
+					String nome = dadosStringsIn("Indique o nome do medicamento que prentende adicionar ao servico");
+					if(medsAux.pesquisaMedicamentosNome(nome) != null){
+						System.out.println("O medicamento ja esta associado ao servico");
+					}
+					else {
+						System.out.println("O medicamento foi associado ao servico");
+					}
+					break;
+				}
+				case 2:{
+					System.out.println("""
+					###############
+					Medicamentos associados
+					###############
+					""");
+					medsAux.ListarMedicamentos();
+					String nome = dadosStringsIn("Indique o nome do medicamento que prentende remover do servico");
+					if (medsAux.removeMedicamento(medsAux.pesquisaMedicamentosNome(nome))){
+						System.out.println("O medicamento foi removido com sucesso.");
+					}
+					else {
+						System.out.println("Ocorreu um erro a remover o medicamento.");
+					}
+					break;
+				}
+				case 3:{
+					System.out.println("""
+					###############
+					Medicamentos associados
+					###############
+					""");
+					medsAux.ListarMedicamentos();
+					break;
+				}
+			}
+		}while (opcao != 4);
+		return new servicos(medsAux,userAux);
 	}
 
 
