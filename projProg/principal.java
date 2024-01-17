@@ -738,7 +738,8 @@ public class principal {
 				}
 			}
 		}while (opcao != 4);
-		return new servicos(medsAux,userAux);
+		String descricao = dadosStringsIn("Introduza a descricao do servico:\n");
+		return new servicos(medsAux,userAux,descricao);
 	}
 
 

@@ -1,8 +1,11 @@
 package projProg;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 
 public class servicos implements Serializable{
@@ -32,12 +35,16 @@ public class servicos implements Serializable{
 		codigo = codigo++;
 		cliente = aCliente;
 	}
-	servicos (gereMedicamentos meds,utilizador user){
+	servicos (gereMedicamentos meds,utilizador user,String adescricao){
 		medi = meds;
 		valTotal = meds.Valortotal();
 		estado = 1;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		data = dateFormat.format(date);
 		codigo = codigo++;
 		cliente = user;
+		descricao = adescricao;
 	}
 	
 	public int getCodigo() {
