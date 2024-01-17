@@ -49,4 +49,18 @@ public class gereInformacao {
         }
         return auxUser;
     }
+    public void ficheiroCredenciais(String aUser,String aPassword){
+        try {
+            FileWriter writer = new FileWriter("credenciais_acesso.txt");
+            BufferedWriter output = new BufferedWriter(writer);
+            output.write("Login: "+aUser + " | Password: " + aPassword + "\n");
+            output.flush();
+            output.close();
+            writer.close();
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Erro! - " + fnfe);
+        } catch (IOException ioe) {
+            System.out.println("Erro! - " + ioe);
+        }
+    }
 }

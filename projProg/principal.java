@@ -474,6 +474,7 @@ public class principal {
 			}while (true);
 		}
 		utilizador userAux = new utilizador(user, password, nome, estado, email, tipo, nif, morada, contacto);
+		info.ficheiroCredenciais(user,password);
 		gereUsers.inserirUser(userAux);
 		return userAux;
 	}
