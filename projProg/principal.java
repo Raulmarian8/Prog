@@ -768,7 +768,7 @@ public class principal {
                 ###############
                 Menu do Gestor
                 ###############
-                \t[1]Gerir Utilizadores
+                \t[1]Gerir Utilizadores 
                 \t[2]Gerir Medicamentos
                 \t[3]Gerir Servicos
                 \t[4]Visualizar log
