@@ -1,8 +1,10 @@
 package projProg;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class compAtivo {
+public class compAtivo implements Serializable{
 	
 	private String designacao;
 	private int codigo;

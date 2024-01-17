@@ -12,7 +12,7 @@ public class medicamentos implements Comparable<medicamentos>, Serializable{
 	private compAtivo componenteAtivo;
 	private int dosagem;
 	private int quantidade;
-	private float preço;
+	private float preco;
 	private int ano;
 	private boolean autorizacao;
 	private boolean generico;
@@ -30,7 +30,7 @@ public class medicamentos implements Comparable<medicamentos>, Serializable{
 		componenteAtivo = aComponenteAtivo;
 		dosagem = aDosagem;
 		quantidade = aQuantidade;
-		preço = aPreco;
+		preco = aPreco;
 		ano = aAno;
 		autorizacao = aAutorizacao;
 		generico = aGenerico;
@@ -39,7 +39,7 @@ public class medicamentos implements Comparable<medicamentos>, Serializable{
 		
 	}
 
-	
+
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
