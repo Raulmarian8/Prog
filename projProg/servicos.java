@@ -8,7 +8,7 @@ import java.util.Enumeration;
 public class servicos implements Serializable{
 
 	private utilizador farmaceutico;
-	ArrayList <medicamentos> medi; 
+	gereMedicamentos medi;
 	private float valTotal;
 	private String data;
 	private int tempo;
@@ -22,7 +22,7 @@ public class servicos implements Serializable{
 			String aDescricao, boolean aTipo, 
 			int aEstado, utilizador aCliente){
 		farmaceutico = aFarmaceutico;
-		medi = new ArrayList<medicamentos>();
+		medi = new gereMedicamentos();
 		valTotal = aValTotal;
 		data = aData;
 		tempo = aTempo;
@@ -51,6 +51,10 @@ public class servicos implements Serializable{
 
 	public int getTempo() {
 		return tempo;
+	}
+
+	public void setTempo(int tempo) {
+		this.tempo = tempo;
 	}
 
 	public utilizador getFarmaceutico() {

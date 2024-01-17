@@ -1,5 +1,6 @@
 package projProg;
 
+import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -155,6 +156,7 @@ public class principal {
 												case 2:{
 													gereMedicamentos.ordenaMedicamentos();
 													System.out.println("Os medicamentos foram ordenados pela designacao");
+													break;
 												}
 												case 3:{
 													System.out.println("""
@@ -164,6 +166,7 @@ public class principal {
 															""");
 													String designacao = dadosStringsIn("Introduza a designacao do medicamento: ");
 													System.out.println(gereMedicamentos.pesquisaMedicamentosNome(designacao));
+													break;
 												}
 												case 4:{
 													System.out.println("""
@@ -173,6 +176,7 @@ public class principal {
 															""");
 													int codigo = dadosIntIn("Introduza a categoria do medicamento: ");
 													//System.out.println(gereMedicamentos.pesquisaMedicamentosCat(codigo));
+													break;
 												}
 												case 5:{
 													System.out.println("""
@@ -182,6 +186,7 @@ public class principal {
 															""");
 													String designacao = dadosStringsIn("Introduza a designacao da componente ativa");
 													System.out.println(gereMedicamentos.pesquisaMedicamentosCompAAtiva(designacao));
+													break;
 												}
 												case 6:{
 													do {
@@ -218,10 +223,16 @@ public class principal {
 													}while (opcao != 3);
 												}
 												case 7:{
+													int quantia = dadosIntIn("Introduza a quantia maxima do stock");
+													gereMedicamentos gereMedicamentosAux = gereMedicamentos.pesquisaMedicamentosStock(quantia);
+													System.out.println(gereMedicamentosAux.ListarMedicamentos());
+													break;
+												}
+												case 8:{
 
 												}
 											}
-										}while (opcao != 8);
+										}while (opcao != 9);
 									}
 									// Gerir Servicos
 									case 3:{
@@ -260,18 +271,20 @@ public class principal {
 																else {
 																	System.out.println("Nao existe nenhum servico com esse codigo por aceitar.");
 																}
+																break;
 															}
 															case 2:{
 																System.out.println("Servicos concluidos:\n"+gereServicos.listarServicos());
 																System.out.println(gereServicos.ListarServicosEstado(4));
-																int codigo = dadosIntIn("Insira o codigo do servico que pretende concluir: ");
-																boolean resultado = gereServicos.AceitarServico(codigo);
+																int codigo = dadosIntIn("Insira o codigo do servico que pretende encerrar: ");
+																boolean resultado = gereServicos.EncerrarServico(codigo);
 																if(resultado){
-																	System.out.println("O servico foi concluido com sucesso.");
+																	System.out.println("O servico foi encerrado com sucesso.");
 																}
 																else {
-																	System.out.println("Nao existe nenhum servico com esse codigo por concluir.");
+																	System.out.println("Nao existe nenhum servico com esse codigo por encerrar.");
 																}
+																break;
 															}
 														}
 
@@ -289,6 +302,7 @@ public class principal {
 													int nif = dadosIntIn("Introduza o NIF do cliente: ");
 													gereServicos gereServicosAux = gereServicos.pesquisaServicosCliente(nif);
 													System.out.println(gereServicosAux.listarServicos());
+													break;
 												}
 												case 4:{
 													System.out.println("""
@@ -300,6 +314,7 @@ public class principal {
 													gereServicos.ListarServicosEstado(3);
 													System.out.println("Concluidos");
 													gereServicos.ListarServicosEstado(5);
+													break;
 												}
 												case 5:{
 													int codigo = dadosIntIn("Introduza o codigo de servico:");
@@ -310,6 +325,7 @@ public class principal {
 													int tempo = dadosIntIn("Introduza o tempo despendido em horas:");
 													gereServicos gereServicosAux = gereServicos.pesquisaServicosTempo(tempo);
 													System.out.println(gereServicosAux.listarServicos());
+													break;
 												}
 											}
 										}while (opcao != 7);
@@ -321,6 +337,74 @@ public class principal {
 						//Farmaceutico
 						case 2:{
 							MenuFarmaceutico();
+							do {
+								opcao = MenuFarmaceutico();
+								switch (opcao){
+									case 1:{
+										do {
+											opcao = MenuGereServicos();
+											switch (opcao){
+												case 1:{
+													System.out.println("""
+														###############
+														Lista de servicos
+														###############
+														""");
+													System.out.println(gereServicos.listarServicosFarmaceutico(userAux.getNif()));
+													break;
+												}
+												case 2:{
+													System.out.println("""
+														###############
+														Servicos por iniciar
+														###############
+															""");
+													System.out.println(gereServicos.pesquisaServicosFarmaceuticos(userAux.getNif()).ListarServicosEstado(2));
+													int codigo = dadosIntIn("Insira o codigo do servico que deseja iniciar: ");
+													boolean resultado = gereServicos.IniciarServico(codigo);
+													if(resultado){
+														System.out.println("O servico foi iniciado com sucesso.");
+														break;
+													}
+													else {
+														System.out.println("Nao existe nenhum servico com esse codigo por iniciar.");
+													}
+													break;
+												}
+												case 3:{
+													System.out.println("""
+														###############
+														Servicos por concluir
+														###############
+															""");
+													System.out.println(gereServicos.pesquisaServicosFarmaceuticos(userAux.getNif()).ListarServicosEstado(2));
+													int codigo = dadosIntIn("Insira o codigo do servico que deseja concluir: ");
+													if(gereServicos.pesquisaServicosCodigo(codigo) != null && gereServicos.pesquisaServicosCodigo(codigo).getEstado() == 3){
+														int tempo = dadosIntIn("Intoduza as horas que o pedido levou :" );
+														boolean resultado = gereServicos.ConcluirServico(codigo, tempo);
+														System.out.println("O pedido foi concluido com sucesso.");
+													}
+													else {
+														System.out.println("Nao existe nenhum servico com esse codigo por concluir.");
+													}
+													break;
+												}
+											}
+										}while (opcao != 4);
+									}
+									case 2:{
+
+
+									}
+									case 3:{
+
+									}
+									case 4:{
+
+									}
+								}
+
+							}while (opcao != 5);
 							break;
 						}
 						//Cliente
@@ -430,6 +514,17 @@ public class principal {
 			return null;
 		}
 	}
+	//------------------Medicamentos-----------------------
+	private static medicamentos Criamed(){
+		String nome = dadosStringsIn("Introduza o nome do medicamento: ");
+		String marca = dadosStringsIn("Introduza a marca do medicamento: ");
+		int lote = dadosIntIn("Introduza o lote do medicamento: ");
+		return new medicamentos(nome,marca,lote,);
+	}
+	private static compAtivo Criacomponente(){
+		String desegnacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
+		int codigo = dadosIntIn("Introduza o codigo do componente ativo");
+	}
 
 
 	//-------------------Menus--------------------------
@@ -480,7 +575,8 @@ public class principal {
                 \t[5]Pesquisar por componente ativa
                 \t[6]Pesquisar por generico
                 \t[7]Pesquisar por quantia do stock
-                \t[8]Exit
+                \t[8]Inserir Medicamento
+                \t[9]Exit
                 \tEscolha uma Opcao:\s""");
 	}
 	private static int Menu_GerirServicos(){
@@ -508,6 +604,20 @@ public class principal {
                 \t[4]Gerir os exipientes
                 \t[5]Exit
                 \tEscolha uma Opcao:\s""");
+	}
+	private static int MenuGereServicos(){
+		return dadosMenuOut("""
+                ###############
+                Gerir Servicos
+                ###############
+                \t[1]Listar os seus Servicos
+                \t[2]Iniciar um servico
+                \t[3]Concluir um servico
+                \t[4]Exit
+                \tEscolha uma Opcao:\s""");
+	}
+	private static int MenuGereMeds(){
+
 	}
 	private static int MenuCliente(){
         return dadosMenuOut("""

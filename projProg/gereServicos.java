@@ -27,7 +27,24 @@ public class gereServicos implements Serializable {
 			}
 		return false;
 	}
-	public boolean ConcluirServico(int codigo) {
+	public boolean IniciarServico(int codigo) {
+		servicos  servico = pesquisaServicosCodigo(codigo);
+		if (servico.getCodigo() == codigo && servico.getEstado() == 2) {
+			servico.setEstado(3);
+			return true;
+		}
+		return false;
+	}
+	public boolean ConcluirServico(int codigo, int tempo) {
+		servicos  servico = pesquisaServicosCodigo(codigo);
+		if (servico.getCodigo() == codigo && servico.getEstado() == 3) {
+			servico.setEstado(4);
+			servico.setTempo(tempo);
+			return true;
+		}
+		return false;
+	}
+	public boolean EncerrarServico(int codigo) {
 		servicos  servico = pesquisaServicosCodigo(codigo);
 			if (servico.getCodigo() == codigo && servico.getEstado() == 4) {
 				servico.setEstado(5);
@@ -103,18 +120,19 @@ public class gereServicos implements Serializable {
 		}
 		return gereServicosAux;
 	}//    pesquisa servicos associado a um farmaceutico
-	public servicos pesquisaServicosFarmaceuticos (int aNif) {
+	public gereServicos pesquisaServicosFarmaceuticos (int aNif) {
+		gereServicos gereServicosAux = new gereServicos();
 		Enumeration<servicos> e = Collections.enumeration(servicosList);
 		servicos servicosAux;
 		while (e.hasMoreElements()) {
 			servicosAux = e.nextElement();
 			if(servicosAux.getFarmaceutico().getNif() == aNif) {
-				return servicosAux;
+				gereServicosAux.inserirServico(servicosAux);
 			}
 		}
-		return null;
+		return gereServicosAux;
 	}
-	//	Listar todos os servicos associados a todos os farmaceuticos organizados
+	//	Listar todos os servicos associados a um farmaceuticos
 	public String listarServicosFarmaceutico(int aNif){
 		Enumeration <servicos> e = Collections.enumeration(servicosList);
 		String servicosInfo = "-------------------------";
