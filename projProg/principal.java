@@ -97,9 +97,14 @@ public class principal {
 																log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao de aceitar um pedido de um utilizador");
 																System.out.println(gereUsers.PedidosRegisto());
 																String login = dadosStringsIn("Introduza o login do utilizador que pretende aprovar");
-																gereUsers.AprovaPedido(login);
-																System.out.println("O pedido de registo foi aceite");
-																log.adicionarFicheiroLog(userAux.getNome(),"Aceitou o pedido de registo do user "+login);
+																if(gereUsers.userExistUti(login)){
+																	gereUsers.AprovaPedido(login);
+																	System.out.println("O pedido de registo foi aceite");
+																	log.adicionarFicheiroLog(userAux.getNome(),"Aceitou o pedido de registo do user "+login);
+																}
+																else {
+																	System.out.println("Nao existe nenhum utilizador com esse login por aceitar");
+																}
 															break;
 															}
 														}
@@ -205,7 +210,14 @@ public class principal {
 																System.out.println("Servicos por aceitar:\n"+gereServicos.listarServicos());
 																System.out.println(gereServicos.ListarServicosEstado(1));
 																int codigo = dadosIntIn("Insira o codigo do servico que pretende aceitar: ");
-																boolean resultado = gereServicos.AceitarServico(codigo);
+																System.out.println("""
+																	###############
+																	Farmaceuticos
+																	###############
+																	""");
+																gereUsers.ListarUsersTipo(2);
+																String login = dadosStringsIn("Insira o login do farmaceutico que pretende associar ao serico");
+																boolean resultado = gereServicos.AceitarServico(codigo,gereUsers.pesquisaUserLogin(login));
 																if(resultado){
 																	System.out.println("O servico foi aceite com sucesso.");
 																	log.adicionarFicheiroLog(userAux.getNome(),"Aprovou o servico " + codigo);
@@ -301,7 +313,6 @@ public class principal {
 						}
 						//Farmaceutico
 						case 2:{
-							MenuFarmaceutico();
 							do {
 								opcao = MenuFarmaceutico();
 								switch (opcao){
@@ -397,31 +408,38 @@ public class principal {
 									case 1:{
 										System.out.println("""
 												###############
-												Pedir Servico
+												Criar pedido de servico
 												###############
 												""");
-
+										servicos servicoAux = CriaServico(userAux);
+										gereServicos.inserirServico(servicoAux);
+										log.adicionarFicheiroLog(userAux.getNome(),"Criou um servico com o id: "+ servicoAux.getCodigo());
+										break;
 									}
 									case 2:{
-
+										System.out.println("""
+												###############
+												Os seus pedidos de servico
+												###############
+												""");
+										System.out.println(gereServicos.listarServicosCliente(userAux));
+										break;
 									}
 								}
 
 							}while (opcao != 3);
+							opcao=0;
 							break;
 						}
 					}
 					break;
 				}
-				default:{
-					System.out.println("Opcao invalida !!!");
-					break;
-				}
+
 			}
 		}while (opcao != 3);
 		escreverFicheiro(memoria);
 	}
-	
+
 
 	//--------------------User--------------------------
 	private static utilizador RegistoUser() {
@@ -701,12 +719,13 @@ public class principal {
 					Medicamentos disponiveis
 					###############
 					""");
-					gereMedicamentos.ListarMedicamentos();
+					System.out.println(gereMedicamentos.ListarMedicamentos());
 					String nome = dadosStringsIn("Indique o nome do medicamento que prentende adicionar ao servico");
 					if(medsAux.pesquisaMedicamentosNome(nome) != null){
 						System.out.println("O medicamento ja esta associado ao servico");
 					}
 					else {
+						medsAux.inserirMedicamentos(gereMedicamentos.pesquisaMedicamentosNome(nome));
 						System.out.println("O medicamento foi associado ao servico");
 					}
 					break;
@@ -717,7 +736,7 @@ public class principal {
 					Medicamentos associados
 					###############
 					""");
-					medsAux.ListarMedicamentos();
+					System.out.println(medsAux.ListarMedicamentos());
 					String nome = dadosStringsIn("Indique o nome do medicamento que prentende remover do servico");
 					if (medsAux.removeMedicamento(medsAux.pesquisaMedicamentosNome(nome))){
 						System.out.println("O medicamento foi removido com sucesso.");
@@ -733,12 +752,13 @@ public class principal {
 					Medicamentos associados
 					###############
 					""");
-					medsAux.ListarMedicamentos();
+					System.out.println(medsAux.ListarMedicamentos());
 					break;
 				}
 			}
 		}while (opcao != 4);
-		return new servicos(medsAux,userAux);
+		String descricao = dadosStringsIn("Introduza a descricao do servico:\n");
+		return new servicos(medsAux,userAux,descricao);
 	}
 
 
