@@ -519,11 +519,49 @@ public class principal {
 		String nome = dadosStringsIn("Introduza o nome do medicamento: ");
 		String marca = dadosStringsIn("Introduza a marca do medicamento: ");
 		int lote = dadosIntIn("Introduza o lote do medicamento: ");
-		return new medicamentos(nome,marca,lote,);
+		int dosagem = dadosIntIn("Introduza a dosagem: ");
+		int quantidade = dadosIntIn("Introduza a quantidade em stock: ");
+		float preco = dadosFloatIn("Introduza o preco: ");
+		int ano = dadosIntIn("Introduza o ano de fabrico: ");
+		boolean autorização = false;
+		int confirmacao = dadosIntIn("""
+          \tO medicamento necessita de autorizacao medica ? S/N :
+          \t[1] Sim
+          \t[2] Nao
+          """);
+		if(confirmacao == 1){
+			autorização = true;
+		}
+		boolean generico = false;
+		int gen = dadosIntIn("""
+          \tO medicamento e generico ?:
+          \t[1] Sim
+          \t[2] Nao
+          \tEscolha uma opcao:\s
+          """);
+		if(gen == 1){
+			generico = true;
+		}
+		return new medicamentos(nome,marca,lote,Criacomponente(),dosagem,quantidade,preco,ano,autorização,generico);
 	}
 	private static compAtivo Criacomponente(){
-		String desegnacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
+		String designacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
 		int codigo = dadosIntIn("Introduza o codigo do componente ativo");
+		int quantidade = dadosIntIn("Introduza a quantidade: ");
+		return new compAtivo(designacao,codigo,quantidade);
+	}
+	private static exipiente Criaexipiente(){
+		String designacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
+		int classificacao = dadosIntIn("Introduza o codigo do componente ativo");
+		int quantidade = dadosIntIn("Introduza a quantidade: ");
+		return new exipiente(designacao,classificacao,quantidade);
+	}
+	private static categoria Criacategoria(){
+		String designacao = dadosStringsIn("Introduza a designacao do co componenete ativo");
+		int classificacao = dadosIntIn("Introduza o codigo do componente ativo");
+		int quantidade = dadosIntIn("Introduza a quantidade: ");
+		String fornecedor = dadosStringsIn("Introduza o nome do fornecedor: ");
+		return new categoria(designacao,classificacao,quantidade,fornecedor);
 	}
 
 
@@ -650,6 +688,11 @@ public class principal {
 		Scanner teclado = new Scanner(System.in);
 		System.out.print(aDados);
 		return teclado.nextInt();
+	}
+	private static float dadosFloatIn(String aDados) {
+		Scanner teclado = new Scanner(System.in);
+		System.out.print(aDados);
+		return teclado.nextFloat();
 	}
 	
 }
