@@ -34,9 +34,9 @@ public class gereMedicamentos implements Serializable {
 //	Listar todos os medicamentos
 	public String ListarMedicamentos() {
 		Enumeration<medicamentos> e = Collections.enumeration(medicamentosList);
-		String medicamentosInfo = "-------------------------";
+		String medicamentosInfo = "\n-------------------------";
 		while (e.hasMoreElements()) {
-			medicamentosInfo += e.nextElement() + "-------------------------" + "\n";
+			medicamentosInfo += e.nextElement() + "\n-------------------------" + "\n";
 		}
 		return medicamentosInfo;
 	}

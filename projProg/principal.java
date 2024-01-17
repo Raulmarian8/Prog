@@ -1,5 +1,8 @@
 package projProg;
 
+import org.w3c.dom.ls.LSOutput;
+
+import java.io.*;
 import java.sql.SQLOutput;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,9 +12,13 @@ public class principal {
 	private static gereUtilizador gereUsers = new gereUtilizador();
 	private static gereMedicamentos gereMedicamentos = new gereMedicamentos();
 	private static gereServicos gereServicos = new gereServicos();
+	private static gereLog log = new gereLog();
+	private static  gereInformacao info = new gereInformacao();
+	private static gereFicheiroObj memoria ;
 	
 	public static void main(String[] args) {
-
+		System.out.println(info.lerFicheiroInfo()+"\n");
+		memoria = lerficheiro();
 		if (gereUsers.listaVazia()) {
 			System.out.println("""
                     Nao existem utilizadores!
@@ -23,6 +30,7 @@ public class principal {
 			String nome = dadosStringsIn("Nome: ");
 			String email = dadosStringsIn("Email: ");
 			utilizador userAux = new utilizador(user, password, nome, true, email, 1);
+			log.adicionarFicheiroLog(nome,"Criou conta como gestor");
 			gereUsers.inserirUser(userAux);
 		}
 		int opcao;
@@ -37,9 +45,14 @@ public class principal {
                     \t[3]Exit
                     \tEscolha uma Opcao:\s""");
 			switch (opcao) {
+				case 0:{
+					System.out.println("O utilizador nao existe !!!");
+					break;
+				}
 //			Registar
 				case 1: {
 					userAux = RegistoUser();
+					log.adicionarFicheiroLog(userAux.getNome(),"Registou-se na aplicação como "+userAux.getTipoString());
 					break;
 				}
 //				Login
@@ -48,7 +61,9 @@ public class principal {
 					int tipo = 0;
 					if(userAux != null){
 						tipo = userAux.getTipo();
-				}
+						log.adicionarFicheiroLog(userAux.getNome(),"Iniciou sessao na aplicacao como " + userAux.getTipoString());
+						info.ficheiroInfo(userAux.getLogin());
+					}
 					switch (tipo){
 						//Gestor
 						case 1:{
@@ -57,15 +72,18 @@ public class principal {
 								switch (opcao){
 									// Gerir Utilizadores
 									case 1:{
+										log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao gerir utilizadores");
 										do {
 											opcao = Menu_GerirUtilizadores();
 											switch (opcao){
 												case 1:{
 													do {
+														log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a de gerir pedidos de registo");
 														opcao = Menu_PedidosUtilizador();
 														switch (opcao){
 															// Listar Pedidos
 															case 1:{
+																log.adicionarFicheiroLog(userAux.getNome(),"Visualizou os pedidos de registo dos utilizadores");
 																System.out.println("""
 																		###############
 																		Pedidos de Registo
@@ -76,17 +94,21 @@ public class principal {
 															}
 															// Aceitar Pedidos
 															case 2:{
+																log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao de aceitar um pedido de um utilizador");
 																System.out.println(gereUsers.PedidosRegisto());
 																String login = dadosStringsIn("Introduza o login do utilizador que pretende aprovar");
 																gereUsers.AprovaPedido(login);
 																System.out.println("O pedido de registo foi aceite");
+																log.adicionarFicheiroLog(userAux.getNome(),"Aceitou o pedido de registo do user "+login);
 															break;
 															}
 														}
 													}while (opcao!=3);
+													log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de gestao de pedidos de registo");
 													break;
 												}
 												case 2:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Exibiu todos os utilizadores existentes no sistema");
 													System.out.println("""
 															###############
 															Utilizadores existentes no sistema
@@ -96,6 +118,7 @@ public class principal {
 													break;
 												}
 												case 3:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou os utilizadores por tipo");
 													System.out.println("""
 															###############
 															Listar utilizadores por tipo
@@ -110,6 +133,7 @@ public class principal {
 													break;
 												}
 												case 4:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Ordenou todos os users por ordem alfabetica do nome");
 													gereUsers.ordenaUsers();
 													System.out.println("Os users foram ordenados por nome");
 													break;
@@ -122,6 +146,7 @@ public class principal {
 															""");
 													String login = dadosStringsIn("Introduza o login do user: ");
 													System.out.println(gereUsers.pesquisaUserLogin(login));
+													log.adicionarFicheiroLog(userAux.getNome(),"Pesquisou por um utilizador com o login: " + login);
 													break;
 												}
 												case 6:{
@@ -132,110 +157,23 @@ public class principal {
 															""");
 													String nome = dadosStringsIn("Introduza o nome do user: ");
 													System.out.println(gereUsers.pesquisaUserNome(nome));
+													log.adicionarFicheiroLog(userAux.getNome(),"Pesquisou por um utilizador com o nome: " + nome );
 													break;
 												}
 
 											}
 										}while (opcao != 7);
+										log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de gestao de utilizadores");
 										break;
 									}
 									// Gerir Medicamentos
 									case 2:{
-										do {
-											opcao = Menu_GerirMedicamentos();
-											switch (opcao){
-												case 1:{
-													System.out.println("""
-															###############
-															Lista de medicamentos
-															###############
-															""");
-													System.out.println(gereMedicamentos.ListarMedicamentos());
-													break;
-												}
-												case 2:{
-													gereMedicamentos.ordenaMedicamentos();
-													System.out.println("Os medicamentos foram ordenados pela designacao");
-													break;
-												}
-												case 3:{
-													System.out.println("""
-															###############
-															Pesquisa por designacao
-															###############
-															""");
-													String designacao = dadosStringsIn("Introduza a designacao do medicamento: ");
-													System.out.println(gereMedicamentos.pesquisaMedicamentosNome(designacao));
-													break;
-												}
-												case 4:{
-													System.out.println("""
-															###############
-															Pesquisa por categoria
-															###############
-															""");
-													int codigo = dadosIntIn("Introduza a categoria do medicamento: ");
-													//System.out.println(gereMedicamentos.pesquisaMedicamentosCat(codigo));
-													break;
-												}
-												case 5:{
-													System.out.println("""
-															###############
-															Pesquisa de medicamento por componente ativa
-															###############
-															""");
-													String designacao = dadosStringsIn("Introduza a designacao da componente ativa");
-													System.out.println(gereMedicamentos.pesquisaMedicamentosCompAAtiva(designacao));
-													break;
-												}
-												case 6:{
-													do {
-														opcao = dadosMenuOut("""
-																Mostrar medicamentos:\\s
-																\\t[1]Genericos
-																\\t[2]Nao genericos
-																\\t[3]Exit
-																Escolha uma opcao:\\s
-																""");
-														switch (opcao){
-															case 1:{
-																System.out.println("""
-																	###############
-																	Medicamentos genericos
-																	###############
-																	""");
-																System.out.println(gereMedicamentos.pesquisaMedicamentosGen(true));
-																break;
-															}
-															case 2:{
-																System.out.println("""
-																		###############
-																		Medicamentos nao genericos
-																		###############
-																		""");
-																System.out.println(gereMedicamentos.pesquisaMedicamentosGen(false));
-																break;
-															}
-															default:{
-																System.out.println("Opcao invalida !!!");
-															}
-														}
-													}while (opcao != 3);
-												}
-												case 7:{
-													int quantia = dadosIntIn("Introduza a quantia maxima do stock");
-													gereMedicamentos gereMedicamentosAux = gereMedicamentos.pesquisaMedicamentosStock(quantia);
-													System.out.println(gereMedicamentosAux.ListarMedicamentos());
-													break;
-												}
-												case 8:{
-
-												}
-											}
-										}while (opcao != 9);
+										MenuGereMedicamentos(userAux);
+										break;
 									}
 									// Gerir Servicos
 									case 3:{
+										log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de gestao de servicos");
 										do {
 											opcao = Menu_GerirServicos();
 											switch (opcao){
@@ -247,10 +185,12 @@ public class principal {
 															###############
 															""");
 													System.out.println(gereServicos.listarServicos());
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou todos os servicos existentes no sistema");
 													break;
 												}
 												// Aprovar e Encerrar servicos
 												case 2:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de aprovacao e encerramento de servicos");
 													do {
 														opcao = dadosMenuOut("""
 																Gerir Servicos\\s
@@ -261,38 +201,46 @@ public class principal {
 																""");
 														switch (opcao){
 															case 1:{
+																log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao de aceitar um servico");
 																System.out.println("Servicos por aceitar:\n"+gereServicos.listarServicos());
 																System.out.println(gereServicos.ListarServicosEstado(1));
 																int codigo = dadosIntIn("Insira o codigo do servico que pretende aceitar: ");
 																boolean resultado = gereServicos.AceitarServico(codigo);
 																if(resultado){
 																	System.out.println("O servico foi aceite com sucesso.");
+																	log.adicionarFicheiroLog(userAux.getNome(),"Aprovou o servico " + codigo);
 																}
 																else {
 																	System.out.println("Nao existe nenhum servico com esse codigo por aceitar.");
+																	log.adicionarFicheiroLog(userAux.getNome(),"Tentou aceitar um servico invalido");
 																}
 																break;
 															}
 															case 2:{
+																log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao de encerrar um servico");
 																System.out.println("Servicos concluidos:\n"+gereServicos.listarServicos());
 																System.out.println(gereServicos.ListarServicosEstado(4));
 																int codigo = dadosIntIn("Insira o codigo do servico que pretende encerrar: ");
 																boolean resultado = gereServicos.EncerrarServico(codigo);
 																if(resultado){
 																	System.out.println("O servico foi encerrado com sucesso.");
+																	log.adicionarFicheiroLog(userAux.getNome(),"Encerrou o servico " +codigo);
 																}
 																else {
 																	System.out.println("Nao existe nenhum servico com esse codigo por encerrar.");
+																	log.adicionarFicheiroLog(userAux.getNome(),"Tentou encerrar um servico invalido");
 																}
 																break;
 															}
 														}
 
 													}while (opcao != 3);
+													log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de aprovacao e encerramento de servicos");
 													break;
 												}
 												// Listar os servicos de um cliente
 												case 3:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Selecionou a opcao de pesquisar servicos de um cliente");
 													System.out.println("""
 															###############
 															Lista de clientes
@@ -302,9 +250,11 @@ public class principal {
 													int nif = dadosIntIn("Introduza o NIF do cliente: ");
 													gereServicos gereServicosAux = gereServicos.pesquisaServicosCliente(nif);
 													System.out.println(gereServicosAux.listarServicos());
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou os servicos associados ao NIF: "+ nif);
 													break;
 												}
 												case 4:{
+													log.adicionarFicheiroLog(userAux.getNome(),"Exibiu os servicos por estado");
 													System.out.println("""
 															###############
 															Servicos
@@ -319,19 +269,34 @@ public class principal {
 												case 5:{
 													int codigo = dadosIntIn("Introduza o codigo de servico:");
 													System.out.println(gereServicos.pesquisaServicosCodigo(codigo));
+													log.adicionarFicheiroLog(userAux.getNome(),"Pesquisou pelo servico " + codigo);
 													break;
 												}
 												case 6:{
 													int tempo = dadosIntIn("Introduza o tempo despendido em horas:");
 													gereServicos gereServicosAux = gereServicos.pesquisaServicosTempo(tempo);
 													System.out.println(gereServicosAux.listarServicos());
+													log.adicionarFicheiroLog(userAux.getNome(),"Pesquisou por servicos que tenham levado mais de " + tempo +" horas");
 													break;
 												}
 											}
 										}while (opcao != 7);
+										log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de gestao de servicos");
+										break;
+									}
+									case 4:{
+										System.out.println("""
+												###############
+												Log
+												###############
+												""");
+										log.adicionarFicheiroLog(userAux.getNome(),"Exibiu o log");
+										log.lerFicheiroLog();
 									}
 								}
-							}while (opcao!=4);
+							}while (opcao!=5);
+							System.out.println("Adeus " + userAux.getNome() );
+							log.adicionarFicheiroLog(userAux.getNome(),"Fez LogOut");
 							break;
 						}
 						//Farmaceutico
@@ -342,6 +307,7 @@ public class principal {
 								switch (opcao){
 									case 1:{
 										do {
+											log.adicionarFicheiroLog(userAux.getNome(),"Acedeu ao menu de gestao de servicos");
 											opcao = MenuGereServicos();
 											switch (opcao){
 												case 1:{
@@ -351,6 +317,7 @@ public class principal {
 														###############
 														""");
 													System.out.println(gereServicos.listarServicosFarmaceutico(userAux.getNif()));
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou os seus servicos");
 													break;
 												}
 												case 2:{
@@ -360,14 +327,17 @@ public class principal {
 														###############
 															""");
 													System.out.println(gereServicos.pesquisaServicosFarmaceuticos(userAux.getNif()).ListarServicosEstado(2));
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou os servicos que estao por ser aceites por ele");
 													int codigo = dadosIntIn("Insira o codigo do servico que deseja iniciar: ");
 													boolean resultado = gereServicos.IniciarServico(codigo);
 													if(resultado){
 														System.out.println("O servico foi iniciado com sucesso.");
+														log.adicionarFicheiroLog(userAux.getNome(),"Aceitou o servico"+codigo);
 														break;
 													}
 													else {
 														System.out.println("Nao existe nenhum servico com esse codigo por iniciar.");
+														log.adicionarFicheiroLog(userAux.getNome(),"Tentou aceitar um servico invalido");
 													}
 													break;
 												}
@@ -377,34 +347,46 @@ public class principal {
 														Servicos por concluir
 														###############
 															""");
-													System.out.println(gereServicos.pesquisaServicosFarmaceuticos(userAux.getNif()).ListarServicosEstado(2));
+													System.out.println(gereServicos.pesquisaServicosFarmaceuticos(userAux.getNif()).ListarServicosEstado(3));
+													log.adicionarFicheiroLog(userAux.getNome(),"Listou os servicos que estao por ser concluidos por ele");
 													int codigo = dadosIntIn("Insira o codigo do servico que deseja concluir: ");
 													if(gereServicos.pesquisaServicosCodigo(codigo) != null && gereServicos.pesquisaServicosCodigo(codigo).getEstado() == 3){
 														int tempo = dadosIntIn("Intoduza as horas que o pedido levou :" );
 														boolean resultado = gereServicos.ConcluirServico(codigo, tempo);
 														System.out.println("O pedido foi concluido com sucesso.");
+														log.adicionarFicheiroLog(userAux.getNome(),"Concluiu o servico"+codigo+" em "+tempo+" horas");
 													}
 													else {
 														System.out.println("Nao existe nenhum servico com esse codigo por concluir.");
+														log.adicionarFicheiroLog(userAux.getNome(),"Tentou concluir um servico invalido");
 													}
 													break;
 												}
 											}
 										}while (opcao != 4);
+										log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de gestao de servicos");
+										break;
 									}
 									case 2:{
-
-
+										MenuGereMedicamentos(userAux);
+										break;
 									}
+									//Nao foi feito
 									case 3:{
-
+										System.out.println("Gerir categorias");
+										log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de gestao de categorias");
+										break;
 									}
+									//Nao foi feito
 									case 4:{
-
+										System.out.println("Gerir ecxipientes");
+										log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de gestao de ecxipientes");
+										break;
 									}
 								}
-
 							}while (opcao != 5);
+							System.out.println("Adeus "+ userAux.getNome());
+							log.adicionarFicheiroLog(userAux.getNome(),"Fez LogOut");
 							break;
 						}
 						//Cliente
@@ -412,10 +394,8 @@ public class principal {
 							MenuCliente();
 							break;
 						}
-						default:{
-							System.out.println("Opcao invalida !!!");
-						}
 					}
+					break;
 				}
 				default:{
 					System.out.println("Opcao invalida !!!");
@@ -423,7 +403,7 @@ public class principal {
 				}
 			}
 		}while (opcao != 3);
-
+		escreverFicheiro(memoria);
 	}
 	
 
@@ -436,6 +416,7 @@ public class principal {
 		int nif = 0;
 		String morada = "Nao tem";
 		int contacto = 0;
+		boolean estado = true;
 		int tipo;
 		do {
 			user = dadosStringsIn("User: ");
@@ -471,6 +452,7 @@ public class principal {
 			}
 		}while(true);
 		if (tipo == 2 || tipo == 3) {
+			estado = false;
 			do{
 				nif = dadosIntIn("Nif: ");
 				if (gereUsers.nifExistUti(nif)) {
@@ -491,9 +473,127 @@ public class principal {
 				}
 			}while (true);
 		}
-		utilizador userAux = new utilizador(user, password, nome, false, email, tipo, nif, morada, contacto);
+		utilizador userAux = new utilizador(user, password, nome, estado, email, tipo, nif, morada, contacto);
 		gereUsers.inserirUser(userAux);
 		return userAux;
+	}
+	private static void MenuGereMedicamentos(utilizador userAux){
+			log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de gestao de medicamentos");
+			int opcao;
+			do {
+				opcao = Menu_GerirMedicamentos();
+				switch (opcao){
+					case 1:{
+						System.out.println("""
+															###############
+															Lista de medicamentos
+															###############
+															""");
+						System.out.println(gereMedicamentos.ListarMedicamentos());
+						log.adicionarFicheiroLog(userAux.getNome(),"Listou todos os medicamentos");
+						break;
+					}
+					case 2:{
+						gereMedicamentos.ordenaMedicamentos();
+						System.out.println("Os medicamentos foram ordenados pela designacao");
+						log.adicionarFicheiroLog(userAux.getNome(),"Ordenou os medicamentos pela sua designacao");
+						break;
+					}
+					case 3:{
+						System.out.println("""
+															###############
+															Pesquisa por designacao
+															###############
+															""");
+						String designacao = dadosStringsIn("Introduza a designacao do medicamento: ");
+						System.out.println(gereMedicamentos.pesquisaMedicamentosNome(designacao));
+						log.adicionarFicheiroLog(userAux.getNome(),"Procurou por um medicamento com o nome: "+designacao);
+						break;
+					}
+					//Nao funciona
+					case 4:{
+						System.out.println("""
+															###############
+															Pesquisa por categoria
+															###############
+															""");
+						int codigo = dadosIntIn("Introduza a categoria do medicamento: ");
+						//System.out.println(gereMedicamentos.pesquisaMedicamentosCat(codigo));
+						break;
+					}
+					case 5:{
+						System.out.println("""
+															###############
+															Pesquisa de medicamento por componente ativo
+															###############
+															""");
+						String designacao = dadosStringsIn("Introduza a designacao do componente ativo");
+						System.out.println(gereMedicamentos.pesquisaMedicamentosCompAAtiva(designacao));
+						log.adicionarFicheiroLog(userAux.getNome(),"Pesquisou por um medicamento com o componenente ativo: " + designacao);
+						break;
+					}
+					case 6:{
+						do {
+							log.adicionarFicheiroLog(userAux.getNome(),"Entrou no menu de exibir medicamento genericos ou nao genericos");
+							opcao = dadosMenuOut("""
+																Mostrar medicamentos:\\s
+																\\t[1]Genericos
+																\\t[2]Nao genericos
+																\\t[3]Exit
+																Escolha uma opcao:\\s
+																""");
+							switch (opcao){
+								case 1:{
+									System.out.println("""
+																	###############
+																	Medicamentos genericos
+																	###############
+																	""");
+									System.out.println(gereMedicamentos.pesquisaMedicamentosGen(true));
+									log.adicionarFicheiroLog(userAux.getNome(),"Exibiu os medicamentos genericos existentes no sistema");
+									break;
+								}
+								case 2:{
+									System.out.println("""
+																		###############
+																		Medicamentos nao genericos
+																		###############
+																		""");
+									System.out.println(gereMedicamentos.pesquisaMedicamentosGen(false));
+									log.adicionarFicheiroLog(userAux.getNome(),"Exibiu os medicamentos nao genericos existentes no sistema");
+									break;
+								}
+								default:{
+									System.out.println("Opcao invalida !!!");
+									log.adicionarFicheiroLog(userAux.getNome(),"Selecionou uma opcao inalvida no menu de exibicao de medicamento genericos ou nao genericos");
+								}
+							}
+						}while (opcao != 3);
+						log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de exibicao de medicamentos genericos ou nao genericos");
+						break;
+					}
+					case 7:{
+						int quantia = dadosIntIn("Introduza a quantia maxima do stock");
+						gereMedicamentos gereMedicamentosAux = gereMedicamentos.pesquisaMedicamentosStock(quantia);
+						System.out.println(gereMedicamentosAux.ListarMedicamentos());
+						log.adicionarFicheiroLog(userAux.getNome(),"Exibiu os medicamentos com stock inferior a " + quantia + " unidades");
+						break;
+					}
+					case 8:{
+						System.out.println("""
+															###############
+															Inserir medicamento
+															###############
+															""");
+						medicamentos medAux = Criamed();
+						if(gereMedicamentos.inserirMedicamentos(medAux)){
+							System.out.println("O medicamento foi inserido no sistema com exito.");
+							log.adicionarFicheiroLog(userAux.getNome(),"Inseriu o medicamento " + medAux.getNome() + "no sistema" );
+						}
+					}
+				}
+			}while (opcao != 9);
+			log.adicionarFicheiroLog(userAux.getNome(),"Saiu do menu de gestao de medicamentos");
 	}
 
 	private static utilizador LoginUser(){
@@ -574,7 +674,8 @@ public class principal {
                 \t[1]Gerir Utilizadores
                 \t[2]Gerir Medicamentos
                 \t[3]Gerir Servicos
-                \t[4]Exit
+                \t[4]Visualizar log
+                \t[5]Exit
                 \tEscolha uma Opcao:\s""");
 	}
 	private static int Menu_GerirUtilizadores(){
@@ -654,9 +755,6 @@ public class principal {
                 \t[4]Exit
                 \tEscolha uma Opcao:\s""");
 	}
-	private static int MenuGereMeds(){
-
-	}
 	private static int MenuCliente(){
         return dadosMenuOut("""
                 ###############
@@ -679,20 +777,83 @@ public class principal {
 	}
 	
 	private static String dadosStringsIn(String aDados){
-		Scanner teclado = new Scanner(System.in);
-		System.out.print(aDados);
-		return teclado.nextLine();
+		try {
+			while(true) {
+				System.out.println(aDados);
+				String input = (new Scanner(System.in)).next();
+				if (input.length() >= 2) {
+					return input;
+				} else {
+					System.out.println("Input invalido. Insira no minimo 2 caracteres.");
+				}
+			}
+		} catch(InputMismatchException a) {
+			return null;
+		}
 	}
 	
 	private static int dadosIntIn(String aDados) {
-		Scanner teclado = new Scanner(System.in);
-		System.out.print(aDados);
-		return teclado.nextInt();
+		try {
+			System.out.println(aDados);
+			return (new Scanner(System.in)).nextInt();
+		}catch(InputMismatchException a) {
+			return -1;
+		}
 	}
 	private static float dadosFloatIn(String aDados) {
-		Scanner teclado = new Scanner(System.in);
-		System.out.print(aDados);
-		return teclado.nextFloat();
+		try {
+			System.out.println(aDados);
+			return (new Scanner(System.in)).nextFloat();
+		} catch (InputMismatchException a) {
+			return -1.0f;
+		}
+	}
+	//------------------Ficheiros-----------------------
+	private static gereFicheiroObj lerficheiro() {
+		File file = new File("dados_apl.dat");
+		if(file.exists()) {
+			try {
+				FileInputStream fIS = new FileInputStream( file );
+				ObjectInputStream oIS = new ObjectInputStream( fIS );
+				gereFicheiroObj ficheiro = ( (gereFicheiroObj)oIS.readObject() );
+				oIS.close();
+				fIS.close();
+				return verificaFicheiro(ficheiro);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			} catch (ClassNotFoundException cnfe) {
+				cnfe.printStackTrace();
+			}
+
+		}
+		else {
+			System.out.println("Ficheiro de Objetos nao existe");
+		}
+		return new gereFicheiroObj(gereUsers,gereMedicamentos,gereServicos);
+	}
+	private static void escreverFicheiro(gereFicheiroObj ficheiro) {
+		try {
+			File file = new File("dados_apl.dat");
+			FileOutputStream fOS = new FileOutputStream( file);
+			ObjectOutputStream oOS = new ObjectOutputStream( fOS );
+			oOS.writeObject(ficheiro);
+			oOS.flush();
+			oOS.close();
+			fOS.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	private static gereFicheiroObj verificaFicheiro(gereFicheiroObj ficheiro){
+		if(ficheiro != null) {
+			gereUsers = ficheiro.getGereUtilizadores();
+			gereMedicamentos= ficheiro.getGereMedicamentos();
+			gereServicos = ficheiro.getGereServicos();
+		}
+		else  {
+			ficheiro = new gereFicheiroObj(gereUsers,gereMedicamentos,gereServicos);
+		}
+		return ficheiro;
 	}
 	
 }

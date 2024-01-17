@@ -3,7 +3,7 @@ package projProg;
 import java.io.*;
 
 public class gereInformacao {
-    public static void ficheiroInfo(String aUser){
+    public void ficheiroInfo(String aUser){
         String numTotal = null;
         try {
             FileReader reader = new FileReader("info_sistema.dat");
@@ -16,6 +16,9 @@ public class gereInformacao {
         } catch (IOException ioe){
             System.out.println("Erro! - " + ioe);
         }
+        if(numTotal == null){
+            numTotal = "0";
+        }
         int numTotalInt = Integer.parseInt(numTotal);
         numTotalInt++;
         try{
@@ -27,19 +30,19 @@ public class gereInformacao {
             writer.close();
         }catch (FileNotFoundException fnfe) {
             System.out.println("Erro! - " + fnfe);
-        } catch (IOException ioe){
+        }catch (IOException ioe){
             System.out.println("Erro! - " + ioe);
         }
     }
 
     public String lerFicheiroInfo(){
-        String auxUser = "";
+        String auxUser = "Numero de execucoes: ";
         try {
             FileReader reader = new FileReader("info_sistema.dat");
             BufferedReader input = new BufferedReader(reader);
             if(input != null) {
                 auxUser += input.readLine();
-                auxUser += (" execuções. Ultimo utilizador: " + input.readLine());
+                auxUser += ("\nUltimo utilizador: " + input.readLine());
             }
         } catch (IOException ioe){
             System.out.println("Erro! - " + ioe);

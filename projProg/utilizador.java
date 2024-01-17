@@ -64,6 +64,17 @@ public class utilizador implements Comparable<utilizador>, Serializable{
 	public int getTipo() {
 		return tipo;
 	}
+	public String getTipoString(){
+		switch (tipo){
+			case 1:
+				return "Gestor";
+			case 2:
+				return "Farmaceutico";
+			case 3:
+				return "Cliente";
+		}
+		return "erro";
+	}
 	
 
 	public boolean isEstado() {

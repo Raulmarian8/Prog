@@ -1,11 +1,12 @@
 package projProg;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public class gereUtilizador {
+public class gereUtilizador implements Serializable {
 	ArrayList <utilizador> userList;
 	
 	gereUtilizador(){
@@ -29,8 +30,6 @@ public class gereUtilizador {
 					if (aPassword.equals(userList.get(i).getPassword())) {
 						return userList.get(i);
 					}
-				}else {
-					return null;
 				}
 			}
 		} return null;
@@ -78,10 +77,11 @@ public class gereUtilizador {
 
 	public String PedidosRegisto(){
 		Enumeration<utilizador> e = Collections.enumeration(userList);
-		String usersInfo = "-------------------------";
+		String usersInfo = "\n-------------------------";
 		while (e.hasMoreElements()) {
-			if(!e.nextElement().isEstado()){
-				usersInfo += e.nextElement() + "-------------------------" + "\n";
+			utilizador userAux = e.nextElement();
+			if(!userAux.isEstado()){
+				usersInfo += userAux + "\n-------------------------" + "\n";
 			}
 		}
 		return usersInfo;
@@ -98,9 +98,9 @@ public class gereUtilizador {
 //	Listar todos os users
 	public String ListarUsers() {
 		Enumeration<utilizador> e = Collections.enumeration(userList);
-		String usersInfo = "-------------------------";
+		String usersInfo = "\n-------------------------";
 		while (e.hasMoreElements()) {
-			usersInfo += e.nextElement() + "-------------------------" + "\n";
+			usersInfo += e.nextElement() + "\n-------------------------" + "\n";
 		}
 		return usersInfo;
 	}
@@ -109,12 +109,12 @@ public class gereUtilizador {
 	public String ListarUsersTipo(int aTipo) {
 		if(userList != null && !userList.isEmpty()) {
 			Enumeration<utilizador> e = Collections.enumeration(userList);
-			String userInfo = "-------------------------";
+			String userInfo = "\n-------------------------";
 			utilizador userAux;
 			while (e.hasMoreElements()) {
 				userAux = e.nextElement();
 				if(userAux.getTipo() == aTipo) {
-					userInfo += userAux + "-------------------------" + "\n";
+					userInfo += userAux + "\n-------------------------" + "\n";
 				}
 			}
 			return userInfo;
