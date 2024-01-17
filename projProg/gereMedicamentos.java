@@ -50,6 +50,7 @@ public class gereMedicamentos implements Serializable {
 		medicamentos medicamentosAux;
 		while (e.hasMoreElements()) {
 			medicamentosAux = e.nextElement();
+			System.out.println("Entrou aqui");
 			if(medicamentosAux.getNome().equalsIgnoreCase(aNome)) {
 				return medicamentosAux;
 			}
